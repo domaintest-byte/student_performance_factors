@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анализ успеваемости студентов</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Анализ успеваемости студентов</h1>
+            <p class="description">Интерактивная панель для анализа факторов, влияющих на академическую успеваемость</p>
+        </header>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="csvFile">Загрузить CSV-файл</label>
+                <input type="file" id="csvFile" accept=".csv">
+            </div>
+            
+            <div class="control-group">
+                <label for="filterColumn">Фильтровать по колонке</label>
+                <select id="filterColumn">
+                    <option value="">-- Выберите колонку --</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="filterValue">Значение фильтра</label>
+                <input type="text" id="filterValue" placeholder="Введите значение">
+            </div>
+            
+            <div class="control-group">
+                <label for="sortColumn">Сортировать по</label>
+                <select id="sortColumn">
+                    <option value="">-- Выберите колонку --</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label>&nbsp;</label>
+                <button id="applyFilters">Применить фильтры</button>
+            </div>
+            
+            <div class="control-group">
+                <label>&nbsp;</label>
+                <button id="exportCsv" class="secondary">Экспорт в CSV</button>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <!-- Блок 1: Данные студентов -->
+            <div class="panel full-width">
+                <div class="panel-header">
+                    <h2 class="panel-title">Данные студентов</h2>
+                </div>
+                
+                <!-- Обертка для таблицы со скроллом -->
+                <div class="table-container" style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead id="tableHeader"></thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+                
+                <!-- Пагинация - теперь горизонтальная под таблицей -->
+                <div class="pagination">
+                    <button id="prevPage">← Назад</button>
+                    <span id="pageInfo">Страница 1 из 1</span>
+                    <button id="nextPage">Вперед →</button>
+                </div>
+            </div>
+            
+            <!-- Блок 2: Статистика -->
+            <div class="panel full-width">
+                <div class="panel-header">
+                    <h2 class="panel-title">Статистика</h2>
+                    <button id="refreshStats">Обновить</button>
+                </div>
+                <div id="statistics"></div>
+            </div>
+            
+            <!-- Блок 3: Визуализация -->
+            <div class="panel full-width">
+                <div class="panel-header">
+                    <h2 class="panel-title">Визуализация данных</h2>
+                    <select id="chartType">
+                        <option value="bar">Столбчатая диаграмма</option>
+                        <option value="scatter">Точечный график</option>
+                        <option value="pie">Круговая диаграмма</option>
+                        <option value="line">Линейный график</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="dataChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Информационная система учёта академической успеваемости | Данные обновлены: <span id="currentDate"></span></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
